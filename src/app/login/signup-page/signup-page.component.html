@@ -1,34 +1,70 @@
-<div class="container py-5">
+<div class="container-fluid">
   <div class="row">
       <div class="col-md-12">
 
-          <div class="row">
-              <div class="col-md-6 mx-auto">
-                  <div class="card border-secondary">
+          <div class="row" style="background-color: whitesmoke;">
+              <div class="col-md-6 mx-auto cardStyle">
+                  <div class="card">
                       <div class="card-header">
-                          <h3 class="mb-0 my-2">Sign Up</h3>
+                          <h1 class="mb-0 my-2 text-center">Sign Up</h1>
                       </div>
                       <div class="card-body">
-                          <form [formGroup]="signupForm">
+                          <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
                               <div class="form-group">
                                   <label for="inputName">Name</label>
-                                  <input type="text" class="form-control" formControlName="name" id="inputName" placeholder="full name">
-                              </div>
+                                  <input type="text" class="form-control" formControlName="name" id="inputName" placeholder="Fullname">
+                                  <div class="alert alert-danger" *ngIf="signupForm.get('name').touched && signupForm.get('name').invalid">
+                                        <div *ngIf="signupForm.get('name').errors.required">Name is Required!</div>
+                                        <div *ngIf="signupForm.get('name').errors.minlength">Name is too Short!</div>
+                                        <div *ngIf="signupForm.get('name').errors.maxlength">Name is too Long!</div>
+                                  </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label for="inputUserName">Username</label>
+                                    <input type="text" class="form-control" formControlName="username" id="inputUserName" placeholder="Username">
+                                    <div class="alert alert-danger" *ngIf="signupForm.get('username').touched && signupForm.get('username').invalid">
+                                          <div *ngIf="signupForm.get('username').errors.required">UserName is Required!</div>
+                                          <div *ngIf="signupForm.get('username').errors.minlength">UserName is too Short!</div>
+                                          <div *ngIf="signupForm.get('username').errors.maxlength">UserName is too Long!</div>
+                                    </div>
+                                    </div>
+
                               <div class="form-group">
-                                  <label for="inputEmail3">Email</label>
+                                  <label for="inputEmail3">Email  <i class="fa fa-plus-square" aria-hidden="true" (click)="addOtherEmail()"></i></label>
                                   <input type="email" email class="form-control" id="inputEmail3" formControlName="email" placeholder="email@gmail.com" required="">
+                                  <div class="alert alert-danger" *ngIf="signupForm.get('email').touched && signupForm.get('email').invalid">
+                                    <div *ngIf="signupForm.get('email').errors.required">Email is Required!</div>
+                                    <div *ngIf="signupForm.get('email').errors.email">Email is not Valid!!</div>
                               </div>
+                              <div formArrayName="otherEmail" *ngFor="let email of signupForm['controls'].otherEmail['controls']; let i = index">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="Alternate Email" [formControlName]="i" aria-label="alternate Email" aria-describedby="basic-addon2">
+                                  <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-times" (click)="deleteOtherEmail(i)" aria-hidden="true"></i></span>
+                                  </div>
+                                </div>
+                              </div>
+                                </div>
                               <div class="form-group">
                                   <label for="inputPassword3">Password</label>
                                   <input type="password" class="form-control" formControlName="password" id="inputPassword3" placeholder="password" title="At least 6 characters with letters and numbers" required="">
+                                  <div class="alert alert-danger" *ngIf="signupForm.get('password').touched && signupForm.get('password').invalid">
+                                    <div *ngIf="signupForm.get('password').errors.required">Password is Required!</div>
+                                    <div *ngIf="signupForm.get('password').errors.minlength">Password is too Short!</div>
                               </div>
+                                </div>
                               <div class="form-group">
-                                  <label for="inputVerify3">Verify</label>
+                                  <label for="inputVerify3">Confirm Password</label>
                                   <input type="password" class="form-control" id="inputVerify3" formControlName="cPassword" placeholder="password (again)" required="">
-                              </div>
+
+                                  <div class="alert alert-warning" *ngIf="signupForm.controls.cPassword.errors?.passwordMatch">Password doesn't Match!</div>
+
+                                </div>
+
                               <div class="form-group">
-                                  <button type="submit" class="btn btn-success btn-lg float-right">Register</button>
+                                  <button type="submit" [disabled]="signupForm.invalid" class="btn btn-success btn-lg float-right">Register</button>
                               </div>
+
                           </form>
                       </div>
                   </div>

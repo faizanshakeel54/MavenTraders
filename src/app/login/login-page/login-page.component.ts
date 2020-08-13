@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { from } from 'rxjs';
 @Component({
   selector: 'app-login-page',
