@@ -7,13 +7,14 @@ import { from } from 'rxjs';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+
 @NgModule({
   declarations: [LoginPageComponent, SignupPageComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
 
   ],
   exports: [

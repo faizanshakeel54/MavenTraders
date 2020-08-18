@@ -4,6 +4,7 @@ export class ValidationFunctions{
 
 
   static a: boolean = false;
+
   static passwordMatch(control : AbstractControl)
   {
         let npassword = control.get('password');

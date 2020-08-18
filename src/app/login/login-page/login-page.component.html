@@ -8,32 +8,37 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est natus facere aperiam!
               Tenetur maiores dolore a quod pariatur ut voluptates quae saepe ea quasi laudantium,
               iste molestias inventore fuga assumenda.</p>
-            <a href="#" class="read-more-1 btn">Sign Up</a>
+            <a routerLink="signup" (click) = "routingCall('signup')" class="read-more-1 btn">Sign Up</a>
           </div>
-
-        </div>
+ </div>
       </div>
       <div class="form-left" style="background-color: floralwhite;">
         <div class="middle">
           <h4 class="text-danger">Sign In</h4>
           <!-- <strong class="text-danger">Sign In to Your Account!</strong> -->
         </div> <br><br>
-           <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform)">
+        <div class="alert alert-danger" *ngIf="b">User Not Found!</div>
+           <form [formGroup]="loginform">
               <div class="form-group">
                   <label>
                     <b>Username</b>
                   </label>
                   <input type="text" formControlName="username" placeholder="Username" class="form-control inputStyle"/>
+                   <div class="alert alert-danger alertBoxStyle" *ngIf="loginform.get('username').touched && loginform.get('username').invalid">
+                       <div *ngIf="loginform.get('username').errors.required">Username is Required!</div>
+                   </div>
               </div>
-
               <div class="form-group">
                 <label>
                   <b>Password</b>
                 </label>
                 <input type="text" formControlName="password" placeholder="Password" class="form-control inputStyle"/>
-            </div><br>
+                <div class="alert alert-danger alertBoxStyle" *ngIf="loginform.get('password').touched && loginform.get('password').invalid">
+                  <div *ngIf="loginform.get('password').errors.required">Password is Required!</div>
+              </div>
+              </div><br>
 
-            <button type="submit" class="btn btn-danger btnSubmit">Sign in</button>
+            <button type="submit" class="btn btn-danger btnSubmit" (click)="isValidate()" [disabled]="loginform.invalid">Sign in</button>
            </form><br><br><br>
 
       </div>

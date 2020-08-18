@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  BaseUrl : 'http://macho-cart.com/nexadmin/server/index.php/'
 };
