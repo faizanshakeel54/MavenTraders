@@ -11,15 +11,25 @@ export class AppService {
   constructor(public http : HttpClient) { }
 
 
-  public BaseURl = environment.BaseUrl;
+  public BaseURl = environment.BaseUrl1;
 
-  public login = (x) : Observable<any[]> =>{
-    return this.http.post<any[]>(this.BaseURl + 'Admin/LoginUserAdmin' , x);
+  public login = (obj) : Observable<any[]> =>{
+    return this.http.post<any[]>(this.BaseURl + 'Admin/LoginUserAdmin' , obj);
   }
+
+
+  public getAllCommodities=(obj) : Observable<any[]>=>{
+
+   return this.http.post<any[]>(this.BaseURl + '/Admin/GetAllCommodities' , obj);
+
+  }
+
 
  public loggedIn=()=>
  {
    return !!localStorage.getItem('auth_Token');
  }
+
+
 
 }

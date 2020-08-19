@@ -1,1 +1,57 @@
 <app-navbar></app-navbar>
+<br><br><br>
+<div class="container">
+
+<div class="row">
+    <div class="col-md-12">
+         <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText"/>
+
+      <div class="table-responsive">
+         <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">title</th>
+              <th scope="col">attachment</th>
+              <th scope="col">user_id_created</th>
+              <th scope="col">date_time_created</th>
+              <th scope="col">Show Modal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let getComm of getCommodities | paginate : {itemsPerPage : 5 , currentPage : p} |filter : searchText">
+              <td>{{getComm.comm_id}}</td>
+              <td>{{getComm.comm_title}}</td>
+              <td><img width="40px" height="40px" src="{{Images_base_Url + getComm.comm_attachment}}"></td>
+              <td>{{getComm.user_id_created}}</td>
+              <td>{{getComm.date_time_created}}</td>
+              <td><button type="button" (click)="openModal(getComm)" class="btn btn-secondary">Click</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+<br>
+ <div style="float: right;">  <!-- Pagination Control -->
+  <div class="pagination">
+      <pagination-controls (pageChange) = "p = $event"></pagination-controls>
+  </div>
+</div>
+
+<modal #htmlInsideModal>   <!--Modal Box-->
+  <ng-template #modalHeader><h2>Maven Traders</h2></ng-template>
+  <ng-template #modalBody>
+
+    <strong>Commodity Id: </strong>{{dataModal.comm_id}}<br>
+    <strong>Commodity Title: </strong>{{dataModal.comm_title}}<br>
+    <strong>Commodity Attachment: </strong><img width="40px" height="40px" src="{{Images_base_Url + dataModal.comm_attachment}}"/>
+
+  </ng-template>
+</modal>
+
+    </div>
+</div>
+
+</div>
+
+
+

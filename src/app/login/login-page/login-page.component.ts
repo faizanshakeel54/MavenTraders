@@ -35,23 +35,24 @@ export class LoginPageComponent implements OnInit {
 
   public isValidate()
   {
+
     let data = {
       email : this.loginform.controls['username'].value,
       password : this.loginform.controls['password'].value
     }
 
-    this.Service.login(data).subscribe((res : any) =>{
+    this.Service.login(data).subscribe((res : any)=>{
       console.log(res);
-      if(res.status==true){
-        localStorage.setItem("auth_Token" , res.data.auth_token);
-        this.routes.navigate(['dashboard']);
-        console.log(localStorage.getItem('auth_Token'));
-
+      if(res.status == true)
+      {
+        localStorage.setItem('auth_Token' , res.data.auth_token);
+        localStorage.setItem('user_id' , res.data.admin_id);
+        this.routes.navigate(["dashboard"])
       }
-    else{
-      alert('Wrong usernme or password');
-    }
-
+      else
+      {
+        alert("Wrong Username or Password");
+      }
     })
     }
 
